@@ -62,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('마스크 재고 있는 곳: ${stores.length} 곳'),
+          title: Text('마스크 재고 있는 곳: ${stores.where((e) {
+            return e.remainStat == 'plenty' || e.remainStat == 'some';
+          }).length} 곳'),
           actions: [
             IconButton(onPressed: fetch, icon: const Icon(Icons.refresh)),
           ],
@@ -70,7 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
         body: isLoading
             ? loadingWidget()
             : ListView(
-                children: stores.map((e) {
+                children: stores.where((e) {
+                  return e.remainStat == 'plenty' || e.remainStat == 'some';
+                }).map((e) {
                   return ListTile(
                     title: Text(e.name),
                     subtitle: Text(e.address),
