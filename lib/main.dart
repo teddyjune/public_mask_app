@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('마스크 재고 있는 곳: 0 곳'),
+          title: Text('마스크 재고 있는 곳: ${stores.length} 곳'),
         ),
         body: ListView(
           children: stores.map((e) {
