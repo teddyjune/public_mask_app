@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -57,6 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('마스크 재고 있는 곳: ${stores.length} 곳'),
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.refresh)),
+          ],
         ),
         body: ListView(
           children: stores.map((e) {
