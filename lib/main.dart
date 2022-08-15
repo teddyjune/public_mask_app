@@ -37,12 +37,19 @@ class _MyHomePageState extends State<MyHomePage> {
         'https://gist.githubusercontent.com/junsuk5/bb7485d5f70974deee920b8f0cd1e2f0/raw/063f64d9b343120c2cb01a6555cf9b38761b1d94/sample.json');
     http.Response response = await http.get(url);
     final jsonResult = jsonDecode(utf8.decode(response.bodyBytes));
-    final stores = jsonResult['stores'];
-
-    stores.clear(); //새로고침에 대응
-    stores.forEach((e) {
-      stores.add(Store.fromJson(e));
+    final jsonStores = jsonResult['stores'];
+    setState(() {
+      stores.clear(); //새로고침에 대응
+      jsonStores.forEach((e) {
+        stores.add(Store.fromJson(e));
+      });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetch();
   }
 
   @override
@@ -55,7 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: stores.map((e) {
             return ListTile(
               title: Text(e.name),
-              subtitle: Text(e.addr),
+              subtitle: Text(e.address),
+              trailing: Text(e.remainStat ?? '매진'),
             );
           }).toList(),
         ));
