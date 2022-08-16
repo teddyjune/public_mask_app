@@ -17,7 +17,7 @@ class Store {
       lat: json['lat'] as double,
       lng: json['lng'] as double,
       name: json['name'] as String,
-      address: json["addr"] as String,
+      address: json['addr'] as String,
       remainStat: json['remain_stat'] as String,
     );
   }
