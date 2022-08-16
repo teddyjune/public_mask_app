@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:public_mask_app/model/store.dart';
-import 'package:public_mask_app/repository/store_repository.dart';
+
+import 'viewmodel/store_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => StoreModel(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,34 +33,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isLoading = false;
-  final stores = <Store>[];
-  final storeRepository = StoreRepository();
 
   @override
   void initState() {
     super.initState();
-    storeRepository.fetch().then((stores) {
-      setState(() {
-        stores = stores;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final storeModel = context.watch<StoreModel>();
     return Scaffold(
         appBar: AppBar(
-          title: Text('마스크 재고 있는 곳: ${stores.where((e) {
+          title: Text('마스크 재고 있는 곳: ${storeModel.stores.where((e) {
             return e.remainStat == 'plenty' || e.remainStat == 'some';
           }).length} 곳'),
           actions: [
             IconButton(
                 onPressed: () {
-                  storeRepository.fetch().then((stores) {
-                    setState(() {
-                      stores = stores;
-                    });
-                  });
+                  storeModel.fetch();
                 },
                 icon: const Icon(Icons.refresh)),
           ],
@@ -65,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: isLoading
             ? loadingWidget()
             : ListView(
-                children: stores.where((e) {
+                children: storeModel.stores.where((e) {
                   return e.remainStat == 'plenty' || e.remainStat == 'some';
                 }).map((e) {
                   return ListTile(
