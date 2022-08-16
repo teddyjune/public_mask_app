@@ -5,6 +5,7 @@ import 'package:public_mask_app/ui/main_screen.dart';
 import 'viewmodel/store_model.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(ChangeNotifierProvider(
       create: (context) => StoreModel(), child: const MyApp()));
 }
