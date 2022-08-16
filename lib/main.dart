@@ -24,20 +24,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: const Icon(Icons.refresh)),
           ],
         ),
-        body: isLoading
+        body: storeModel.isLoading == true
             ? loadingWidget()
             : ListView(
                 children: storeModel.stores.where((e) {
