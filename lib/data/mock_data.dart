@@ -5,6 +5,8 @@ import 'package:public_mask_app/domain/model/store.dart';
 import 'package:public_mask_app/domain/repository/location_permission_repository.dart';
 import 'package:public_mask_app/domain/repository/location_repository.dart';
 
+import '../domain/repository/store_repository.dart';
+
 class MockStoreRepository implements StoreRepository {
   @override
   Future<List<Store>> getStores() async {

@@ -42,16 +42,18 @@ class GetNearByStoresUseCase {
       final location = await _locationRepository.getLocation();
 
       return stores.map((store) {
-        return MainState.stores.(
-          distance: _locationRepository.distanceBetween(
-            store.lat.toDouble(),
-            store.lng.toDouble(),
-            location.latitude,
-            location.longitude,
-          ),
+        return MainState.stores
+        .copyWith(
+        distance: _locationRepository.distanceBetween(
+        store.lat.toDouble(),
+        store.lng.toDouble(),
+        location.latitude,
+        location.longitude,
+        )
+        ,
         );
       }).toList()
-          ..sort((a, b) => a.distance!.compareTo(b.distance!));
-
+        ..sort((a, b) => a.distance!.compareTo(b.distance!));
     }
   }
+}
