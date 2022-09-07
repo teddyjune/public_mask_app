@@ -4,6 +4,7 @@ class Store {
   final String name;
   final String address;
   final String remainStat;
+  double? distance;
 
   Store(
       {required this.lat,

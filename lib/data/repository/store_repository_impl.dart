@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:public_mask_app/model/store.dart';
 
-class StoreRepository {
-  Future<List<Store>> fetch(double lat, double lng) async {
+import 'package:http/http.dart' as http;
+import 'package:public_mask_app/domain/model/store.dart';
+
+class StoreRepositoryImpl {
+  Future<List<Store>> getStores() async {
     final stores = <Store>[];
     Uri url = Uri.parse(
         'https://gist.githubusercontent.com/junsuk5/bb7485d5f70974deee920b8f0cd1e2f0/raw/063f64d9b343120c2cb01a6555cf9b38761b1d94/sample.json');

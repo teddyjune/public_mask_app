@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../model/store.dart';
+import '../domain/model/store.dart';
+
 
 class RemainStatListtile extends StatelessWidget {
   final Store store;
