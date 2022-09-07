@@ -1,10 +1,8 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:public_mask_app/domain/model/permission.dart';
 import 'package:public_mask_app/domain/model/store.dart';
 import 'package:public_mask_app/domain/repository/location_permission_repository.dart';
 import 'package:public_mask_app/domain/repository/location_repository.dart';
 import 'package:public_mask_app/domain/repository/store_repository.dart';
-import 'package:public_mask_app/presentation/main_state.dart';
 
 class GetNearByStoresUseCase {
   final StoreRepository _storeRepository;
@@ -18,13 +16,13 @@ class GetNearByStoresUseCase {
     final stores = await _storeRepository.getStores();
     // 기기의 위치 서비스 확인
     final serviceEnabled =
-    await _locationPermissionRepository.isLocationServiceEnabled();
+        await _locationPermissionRepository.isLocationServiceEnabled();
     // 권한 체크
     if (serviceEnabled) {
       Permission permission =
-      await _locationPermissionRepository.checkPermission();
+          await _locationPermissionRepository.checkPermission();
 
-      if (permission == LocationPermission.denied) {
+      if (permission == Permission.denied) {
         //요청
         permission = await _locationPermissionRepository.requestPermission();
         if (permission == Permission.denied) {
@@ -42,18 +40,17 @@ class GetNearByStoresUseCase {
       final location = await _locationRepository.getLocation();
 
       return stores.map((store) {
-        return MainState.stores
-        .copyWith(
-        distance: _locationRepository.distanceBetween(
-        store.lat.toDouble(),
-        store.lng.toDouble(),
-        location.latitude,
-        location.longitude,
-        )
-        ,
+        return store.copyWith(
+          distance: _locationRepository.distanceBetween(
+            store.lat.toDouble(),
+            store.lng.toDouble(),
+            location.latitude,
+            location.longitude,
+          ),
         );
       }).toList()
         ..sort((a, b) => a.distance!.compareTo(b.distance!));
     }
+    return stores;
   }
 }

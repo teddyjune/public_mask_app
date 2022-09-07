@@ -17,3 +17,4 @@ class LocationRepositoryImpl implements LocationRepository {
     return Geolocator.distanceBetween(startLat, startLng, endLat, endLng);
   }
 }
+
