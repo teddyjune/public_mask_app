@@ -26,7 +26,7 @@ void main() {
               lat: 3.3,
               lng: 4,
               name: 'name',
-              remainStat: 'remainStatus',
+              remainStat: 'remainStatus', distance: null,
             )).length;
 
     expect(actual, expected);

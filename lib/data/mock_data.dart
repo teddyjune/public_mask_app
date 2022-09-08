@@ -19,6 +19,7 @@ class MockStoreRepository implements StoreRepository {
           lng: 4,
           name: '승약국',
           remainStat: 'remainStatus',
+          distance: null,
         ),
       ),
     ];
@@ -36,6 +37,7 @@ class MockNearbyStoreRepository implements StoreRepository {
         lng: 127.0001,
         name: '수원약국',
         remainStat: 'remainStatus',
+        distance: null,
       ),
       Store(
         address: 'address',
@@ -43,6 +45,7 @@ class MockNearbyStoreRepository implements StoreRepository {
         lng: 126.9236,
         name: '안양약국',
         remainStat: 'remainStatus',
+        distance: null,
       ),
       Store(
         address: 'address',
@@ -50,6 +53,7 @@ class MockNearbyStoreRepository implements StoreRepository {
         lng: 127.0870,
         name: '평택약국',
         remainStat: 'remainStatus',
+        distance: null,
       ),
     ];
   }

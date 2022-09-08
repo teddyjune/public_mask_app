@@ -1,24 +1,25 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:public_mask_app/data/data_source/store_api.dart';
 import 'package:public_mask_app/domain/model/store.dart';
+import 'package:public_mask_app/domain/repository/store_repository.dart';
 
-class StoreRepositoryImpl {
+class StoreRepositoryImpl implements StoreRepository {
+  final _api = StoreApi();
+
+  @override
   Future<List<Store>> getStores() async {
-    final stores = <Store>[];
-    Uri url = Uri.parse(
-        'https://gist.githubusercontent.com/junsuk5/bb7485d5f70974deee920b8f0cd1e2f0/raw/063f64d9b343120c2cb01a6555cf9b38761b1d94/sample.json');
-    http.Response response = await http.get(url);
-    final jsonResult = jsonDecode(utf8.decode(response.bodyBytes));
-    final jsonStores = jsonResult['stores'];
-    // setState(() {
-
-    jsonStores.forEach((e) {
-      stores.add(Store.fromJson(e));
-    });
-    print('fetch 완료');
-    return stores.where((e) {
-      return e.remainStat == 'plenty' || e.remainStat == 'some';
-    }).toList();
+    final dto = await _api.getStoresInfo();
+    if (dto.stores == null) {
+      return [];
+    }
+    return dto.stores!
+        .where((e) => e.name != null)
+        .map((e) => Store(
+            lat: e.lat! ?? 0.0,
+            lng: e.lng! ?? 0.0,
+            name: e.name ?? '이름 없음',
+            address: e.addr ?? '',
+            remainStat: e.remainStat ?? '알 수 없음',
+            distance: null))
+        .toList();
   }
 }

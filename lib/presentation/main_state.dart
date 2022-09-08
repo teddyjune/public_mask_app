@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:public_mask_app/domain/model/store.dart';
+
+import '../domain/model/store.dart';
 
 part 'main_state.freezed.dart';
-
 part 'main_state.g.dart';
 
 @freezed
@@ -15,4 +15,3 @@ class MainState with _$MainState {
   factory MainState.fromJson(Map<String, Object?> json) =>
       _$MainStateFromJson(json);
 }
-
