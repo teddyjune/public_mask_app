@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../domain/model/store.dart';
 
-
 class RemainStatListtile extends StatelessWidget {
   final Store store;
+
   const RemainStatListtile(this.store, {Key? key}) : super(key: key);
 
   @override
@@ -45,8 +45,7 @@ class RemainStatListtile extends StatelessWidget {
       children: [
         Text(
           remainStat,
-          style:
-              const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+          style: TextStyle(color: color, fontWeight: FontWeight.bold),
         ),
         Text(description),
       ],
